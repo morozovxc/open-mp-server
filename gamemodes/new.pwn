@@ -3637,23 +3637,15 @@ stock FIXES_strins(string[], const substr[], pos, maxlength = sizeof string)
 			strlength = strlen(string),
 			sublength = strlen(substr),
 			m4 = maxlength * 4;
-		// Packed - format doesn't like these strings.
 		if (strlength + sublength >= m4)
 		{
 			if (pos + sublength >= m4)
 			{
 				return
 					string{pos} = '\0',
-					// Hopefully this doesn't ignore maxlength and does packed.
 					strcat(string, substr, maxlength);
 			}
-			else
-			{
-				// pos + sublength is less than maxlength, so this sum MUST
-				// be positive and gte than "pos", so there's no need for
-				// additional checks.
-				string{maxlength - sublength - 1} = '\0';
-			}
+			else string{maxlength - sublength - 1} = '\0';
 		}
 		return strins(string, substr, pos, maxlength);
 	}
@@ -3662,30 +3654,19 @@ stock FIXES_strins(string[], const substr[], pos, maxlength = sizeof string)
 		new
 			strlength = strlen(string),
 			sublength = strlen(substr);
-		// Packed - format doesn't like these strings.
 		if (strlength + sublength >= maxlength)
 		{
 			if (pos + sublength >= maxlength)
 			{
 				return
 					string[pos] = '\0',
-					// Hopefully this doesn't ignore maxlength and does packed.
 					strcat(string, substr, maxlength);
 			}
-			else
-			{
-				// pos + sublength is less than maxlength, so this sum MUST
-				// be positive and gte than "pos", so there's no need for
-				// additional checks.
-				string[maxlength - sublength - 1] = '\0';
-			}
+			else string[maxlength - sublength - 1] = '\0';
 		}
 		return strins(string, substr, pos, maxlength);
 	}
-	else
-	{
-		return format(string, maxlength, "%.*s%s%s", pos, string, substr, string[pos]);
-	}
+	else return format(string, maxlength, "%.*s%s%s", pos, string, substr, string[pos]);
 }
 
 #if defined _ALS_strins
