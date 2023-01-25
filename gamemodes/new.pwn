@@ -3694,5 +3694,3 @@ stock FIXES_strins(string[], const substr[], pos, maxlength = sizeof string)
 	#define _ALS_strins
 #endif
 #define strins FIXES_strins
-
-
